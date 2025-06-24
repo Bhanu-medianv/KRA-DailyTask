@@ -1,0 +1,38 @@
+syntax = "proto3";
+package event ;
+
+message CreateEventDto{
+    string title = 1;
+    string description =  2;
+    string date = 3;
+}
+
+message Event{
+    int32 id = 1;
+    string title = 2;
+    string description = 3;
+    string date = 4;
+}
+
+message Empty{}
+
+message EventId {int32 id = 1;}
+
+message UpdateEventDto{
+    int32 id = 1;
+    string title = 2;
+    string description =  3;
+    string date = 4;
+}
+
+message EventList {
+    repeated Event events = 1;
+}
+
+service EventService{
+    rpc CreateEvent(CreateEventDto) returns (Event);
+    rpc FindOne(EventId) returns (Event) ;
+    rpc FindAll(Empty) returns (EventList) ;
+    rpc Update (UpdateEventDto) returns (Event) ;
+    rpc Delete(EventId) returns (Empty) ;
+}
