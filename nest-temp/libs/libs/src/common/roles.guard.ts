@@ -15,7 +15,7 @@ export class RolesGuard implements CanActivate {
   async canActivate(context: ExecutionContext):Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
-    
+   
      if (!token) {
           throw new UnauthorizedException();
         }
@@ -24,23 +24,26 @@ export class RolesGuard implements CanActivate {
         {
           secret: "bhanu"
         }
-       
+        
       );
+      
     const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
       context.getHandler(),
       context.getClass(),
     
     ]);
+     console.log("payload =",payload)
     if (!requiredRoles) {
       return true;
     }
-
-    // console.log(context.switchToHttp().getRequest())
-    return requiredRoles.some((role) => payload.role?.includes(role));
+    const value  = requiredRoles.some((role) => payload.roles?.includes(role));
+    console.log(value)
+    return value
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {
       const [type, token] = request.headers["authorization"].split(' ') ?? [];
+      
       return type === 'Bearer' ? token : undefined;
     }
 }

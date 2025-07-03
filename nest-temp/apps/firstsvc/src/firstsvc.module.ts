@@ -24,7 +24,7 @@ import { JwtModule } from '@nestjs/jwt';
   JwtModule.register({
         global: true,
         secret: "bhanu",
-        signOptions: { expiresIn: '300s' },
+        signOptions: { expiresIn: '1d' },
       })
 ],
   controllers: [FirstsvcController],

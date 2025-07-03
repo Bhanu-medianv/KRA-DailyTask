@@ -13,7 +13,7 @@ export class TodoService {
   ){}
   
   create(createTodoDto:any) {
-    return  this.commandBus.execute(new  CreateCommand(createTodoDto?.title , createTodoDto?.description))
+    return  this.commandBus.execute(new CreateCommand(createTodoDto?.title , createTodoDto?.description))
   }
 
   findAll() {
